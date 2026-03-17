@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTrack LMS - User Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --bg-card: #151520;
+            --border-color: #2a2a3a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6a6a7a;
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .version {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            margin-left: 54px;
+        }
+
+        .nav-section {
+            padding: 16px 0;
+        }
+
+        .nav-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            padding: 0 20px 8px;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin: 2px 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-primary);
+            border-left-color: var(--accent-primary);
+        }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            opacity: 0.7;
+        }
+
+        .nav-link.active .nav-icon {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 32px 40px;
+            max-width: 900px;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: var(--accent-primary);
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Credentials Table */
+        .credentials-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .credentials-table th,
+        .credentials-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .credentials-table th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .credentials-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .role-admin {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .role-manager {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .role-trainer {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .role-student {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        li::marker {
+            color: var(--accent-primary);
+        }
+
+        /* Steps */
+        .step-list {
+            counter-reset: step;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 48px;
+            margin-bottom: 20px;
+        }
+
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Info boxes */
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 16px 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 20px 0;
+        }
+
+        .info-box.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left-color: var(--warning);
+        }
+
+        .info-box.success {
+            background: rgba(34, 197, 94, 0.1);
+            border-left-color: var(--success);
+        }
+
+        .info-box.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: var(--error);
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Screenshots placeholder */
+        .screenshot {
+            background: var(--bg-tertiary);
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-muted);
+        }
+
+        .screenshot-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        /* Mobile toggle */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Search */
+        .search-box {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-primary);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 80px 20px 32px;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .sidebar, .mobile-toggle {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">📚</div>
+                    <div>
+                        <div class="logo-text">EduTrack LMS</div>
+                        <div class="version">User Documentation v1.0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search documentation..." id="searchInput">
+            </div>
+
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-title">Getting Started</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#overview" class="nav-link active" onclick="showSection('overview')">
+                                <span>🏠</span> Overview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#access" class="nav-link" onclick="showSection('access')">
+                                <span>🔐</span> System Access
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#credentials" class="nav-link" onclick="showSection('credentials')">
+                                <span>👤</span> User Credentials
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">User Guides</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#admin" class="nav-link" onclick="showSection('admin')">
+                                <span>⚡</span> Admin Guide
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#manager" class="nav-link" onclick="showSection('manager')">
+                                <span>👔</span> Manager Guide
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#trainer" class="nav-link" onclick="showSection('trainer')">
+                                <span>🎓</span> Trainer Guide
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#student" class="nav-link" onclick="showSection('student')">
+                                <span>📝</span> Student Guide
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">Features</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#schools" class="nav-link" onclick="showSection('schools')">
+                                <span>🏫</span> School Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#classes" class="nav-link" onclick="showSection('classes')">
+                                <span>📖</span> Class Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#courses" class="nav-link" onclick="showSection('courses')">
+                                <span>📚</span> Course Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#report-cards" class="nav-link" onclick="showSection('report-cards')">
+                                <span>📊</span> Report Cards
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#attendance" class="nav-link" onclick="showSection('attendance')">
+                                <span>✅</span> Attendance
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">Support</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#troubleshooting" class="nav-link" onclick="showSection('troubleshooting')">
+                                <span>🔧</span> Troubleshooting
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#contact" class="nav-link" onclick="showSection('contact')">
+                                <span>📧</span> Contact Support
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <h1>EduTrack LMS Documentation</h1>
+                <p style="font-size: 18px; color: var(--text-muted);">Complete user guide for the Education Management System</p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-title">What is EduTrack LMS?</div>
+                    </div>
+                    <p>EduTrack LMS is a comprehensive Learning Management System designed for educational institutions. It provides tools for managing schools, classes, students, courses, trainers, and generating detailed report cards with performance tracking.</p>
+                </div>
+
+                <h2>Key Features</h2>
+                <div class="card">
+                    <ul>
+                        <li><strong>School Management</strong> - Create and manage multiple schools with branches</li>
+                        <li><strong>Class Management</strong> - Organize classes with assigned trainers and courses</li>
+                        <li><strong>Student Management</strong> - Enroll students, track attendance and performance</li>
+                        <li><strong>Course Management</strong> - Define courses with duration and grade levels</li>
+                        <li><strong>Report Cards</strong> - Generate comprehensive report cards with custom templates</li>
+                        <li><strong>Attendance Tracking</strong> - Daily attendance with session-wise logs</li>
+                        <li><strong>Multi-Role Access</strong> - Admin, Manager, Trainer, and Student roles</li>
+                    </ul>
+                </div>
+
+                <h2>System Requirements</h2>
+                <div class="card">
+                    <h4>Supported Browsers</h4>
+                    <ul>
+                        <li>Google Chrome (latest version)</li>
+                        <li>Mozilla Firefox (latest version)</li>
+                        <li>Microsoft Edge (latest version)</li>
+                        <li>Safari (latest version)</li>
+                    </ul>
+
+                    <h4>Internet Connection</h4>
+                    <p>Stable internet connection required for real-time data synchronization.</p>
+                </div>
+            </section>
+
+            <!-- Access Section -->
+            <section id="access" class="content-section">
+                <h1>System Access</h1>
+
+                <h2>How to Access the System</h2>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>
+                            <strong>Open your web browser</strong>
+                            <p>Launch Google Chrome, Firefox, Edge, or Safari on your computer or mobile device.</p>
+                        </li>
+                        <li>
+                            <strong>Enter the system URL</strong>
+                            <p>Type the following address in your browser's address bar:</p>
+                            <div class="code-block" data-lang="url">http://43.205.116.187/app/</div>
+                        </li>
+                        <li>
+                            <strong>Login with your credentials</strong>
+                            <p>Use the username and password provided by your administrator. See the User Credentials section for default accounts.</p>
+                        </li>
+                        <li>
+                            <strong>Access your dashboard</strong>
+                            <p>After successful login, you'll be redirected to your role-specific dashboard.</p>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">⚠️ Important Note</div>
+                    <p>Make sure to use <strong>HTTP</strong> (not HTTPS) when accessing the system. The server is configured for HTTP access only.</p>
+                </div>
+
+                <h2>Login Page Overview</h2>
+                <div class="card">
+                    <div class="screenshot">
+                        <div class="screenshot-icon">🖼️</div>
+                        <p>Login Page Screenshot Placeholder</p>
+                        <p style="font-size: 12px;">The login page contains username and password fields with a "Sign In" button.</p>
+                    </div>
+                </div>
+
+                <h3>Forgot Password?</h3>
+                <div class="card">
+                    <p>If you've forgotten your password, contact your system administrator. The admin can reset your password from the user management section.</p>
+                </div>
+            </section>
+
+            <!-- Credentials Section -->
+            <section id="credentials" class="content-section">
+                <h1>User Credentials</h1>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">🔒 Security Notice</div>
+                    <p>These are <strong>default credentials</strong> for initial system setup. Please change passwords after first login for security purposes.</p>
+                </div>
+
+                <h2>Default Login Credentials</h2>
+                <div class="card">
+                    <table class="credentials-table">
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>Access Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="role-badge role-admin">Admin</span></td>
+                                <td><code>admin@omotrack.com</code></td>
+                                <td><code>Admin@123</code></td>
+                                <td>Full System Access</td>
+                            </tr>
+                            <tr>
+                                <td><span class="role-badge role-manager">Manager</span></td>
+                                <td><code>manager@omotrack.com</code></td>
+                                <td><code>Manager@123</code></td>
+                                <td>School-Level Management</td>
+                            </tr>
+                            <tr>
+                                <td><span class="role-badge role-trainer">Trainer</span></td>
+                                <td><em>Created by Admin/Manager</em></td>
+                                <td><em>Set during creation</em></td>
+                                <td>Class & Student Management</td>
+                            </tr>
+                            <tr>
+                                <td><span class="role-badge role-student">Student</span></td>
+                                <td><em>Created by Admin/Manager</em></td>
+                                <td><em>Set during creation</em></td>
+                                <td>View Reports & Profile</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Role-Based Access</h2>
+
+                <h3>Administrator</h3>
+                <div class="card">
+                    <p>Admins have complete control over the system with access to:</p>
+                    <ul>
+                        <li>Create and manage schools</li>
+                        <li>Create managers and assign them to schools</li>
+                        <li>Create trainers and students</li>
+                        <li>Manage all classes and courses</li>
+                        <li>Configure report card templates</li>
+                        <li>View system-wide analytics</li>
+                        <li>Access recycle bin for deleted items</li>
+                    </ul>
+                </div>
+
+                <h3>Manager</h3>
+                <div class="card">
+                    <p>Managers are assigned to specific schools and can:</p>
+                    <ul>
+                        <li>Manage their assigned school's data</li>
+                        <li>Create and manage classes</li>
+                        <li>Create trainers and students within their school</li>
+                        <li>View school-level reports</li>
+                        <li>Manage academic sessions and terms</li>
+                    </ul>
+                </div>
+
+                <h3>Trainer</h3>
+                <div class="card">
+                    <p>Trainers are assigned to specific classes and can:</p>
+                    <ul>
+                        <li>View their assigned classes</li>
+                        <li>Take attendance for sessions</li>
+                        <li>Enter student performance data</li>
+                        <li>Generate report cards for their classes</li>
+                        <li>View student profiles</li>
+                    </ul>
+                </div>
+
+                <h3>Student</h3>
+                <div class="card">
+                    <p>Students have limited access to view:</p>
+                    <ul>
+                        <li>Their own profile information</li>
+                        <li>Class details and assigned courses</li>
+                        <li>Attendance records</li>
+                        <li>Performance metrics</li>
+                        <li>Generated report cards</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Admin Guide -->
+            <section id="admin" class="content-section">
+                <h1>Administrator Guide</h1>
+
+                <h2>Getting Started as Admin</h2>
+                <div class="card">
+                    <p>As an administrator, you have full control over the EduTrack LMS. This guide will walk you through the essential setup tasks.</p>
+                </div>
+
+                <h3>1. Creating Schools</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>
+                            <strong>Navigate to Schools</strong>
+                            <p>From the admin dashboard, click on "School Management" in the left sidebar.</p>
+                        </li>
+                        <li>
+                            <strong>Add New School</strong>
+                            <p>Click the "Add School" button and fill in the required information:</p>
+                            <ul>
+                                <li>School Name</li>
+                                <li>Address</li>
+                                <li>Contact Information</li>
+                                <li>School Code (unique identifier)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Save School</strong>
+                            <p>Click "Create" to add the school to the system.</p>
+                        </li>
+                    </ol>
+                </div>
+
+                <h3>2. Creating Managers</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Navigate to "User Management" → "Managers"</li>
+                        <li>Click "Add Manager"</li>
+                        <li>Fill in manager details (Name, Email, Phone)</li>
+                        <li>Set username and password</li>
+                        <li>Assign to one or more schools</li>
+                        <li>Click "Create Manager"</li>
+                    </ol>
+                </div>
+
+                <h3>3. Setting Up Academic Years</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Go to "Academic Settings" → "Sessions & Terms"</li>
+                        <li>Create a new academic session (e.g., "2025-2026")</li>
+                        <li>Set start and end dates</li>
+                        <li>Add terms/semesters within the session</li>
+                        <li>Mark one session as "Active"</li>
+                    </ol>
+                </div>
+
+                <h3>4. Creating Courses</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Navigate to "Course Management"</li>
+                        <li>Click "Add Course"</li>
+                        <li>Enter course details:</li>
+                    </ol>
+                    <ul>
+                        <li>Course Code (unique)</li>
+                        <li>Course Title</li>
+                        <li>Description</li>
+                        <li>Duration (in weeks)</li>
+                        <li>Grade Level (optional)</li>
+                    </ul>
+                </div>
+
+                <h3>5. Managing Report Card Templates</h3>
+                <div class="card">
+                    <h4>Creating Parameter Sets</h4>
+                    <ol class="step-list">
+                        <li>Go to "Report Card Settings" → "Parameter Sets"</li>
+                        <li>Create a new parameter set with metrics (e.g., Attendance, Homework, Class Participation)</li>
+                        <li>Define metric keys with weightage</li>
+                        <li>Save the parameter set</li>
+                    </ol>
+
+                    <h4>Creating Templates</h4>
+                    <ol class="step-list">
+                        <li>Navigate to "Report Card Templates"</li>
+                        <li>Click "Create Template"</li>
+                        <li>Select a parameter set</li>
+                        <li>Configure layout and grading scale</li>
+                        <li>Save as draft or publish</li>
+                    </ol>
+                </div>
+
+                <div class="info-box success">
+                    <div class="info-box-title">✅ Best Practice</div>
+                    <p>Set up your academic year and courses before creating classes. This ensures proper assignment of courses to classes.</p>
+                </div>
+            </section>
+
+            <!-- Manager Guide -->
+            <section id="manager" class="content-section">
+                <h1>Manager Guide</h1>
+
+                <h2>Managing Your School</h2>
+                <div class="card">
+                    <p>As a manager, you are responsible for day-to-day operations of your assigned school(s). Here's how to manage your responsibilities effectively.</p>
+                </div>
+
+                <h3>1. Creating Classes</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>
+                            <strong>Navigate to Classes</strong>
+                            <p>From your dashboard, click "Class Management" in the sidebar.</p>
+                        </li>
+                        <li>
+                            <strong>Create New Class</strong>
+                            <p>Click "Add Class" and provide:</p>
+                            <ul>
+                                <li>Class Name (e.g., "Grade 5-A")</li>
+                                <li>Select Academic Session</li>
+                                <li>Select Academic Term</li>
+                                <li>Assign a Trainer (or leave unassigned)</li>
+                                <li>Select Courses to include</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Save Class</strong>
+                            <p>Review and click "Create Class"</p>
+                        </li>
+                    </ol>
+                </div>
+
+                <h3>2. Managing Trainers</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Go to "User Management" → "Trainers"</li>
+                        <li>Click "Add Trainer"</li>
+                        <li>Fill in personal details</li>
+                        <li>Create login credentials</li>
+                        <li>Assign to specific school(s)</li>
+                        <li>Optionally assign to specific class(es)</li>
+                    </ol>
+                </div>
+
+                <h3>3. Managing Students</h3>
+                <div class="card">
+                    <h4>Adding Individual Students</h4>
+                    <ol class="step-list">
+                        <li>Navigate to "Student Management"</li>
+                        <li>Click "Add Student"</li>
+                        <li>Fill in student details (Name, DOB, Parent Info)</li>
+                        <li>Assign to a class</li>
+                        <li>Create login credentials</li>
+                    </ol>
+
+                    <h4>Bulk Import</h4>
+                    <ol class="step-list">
+                        <li>Go to "Import" → "Students"</li>
+                        <li>Download the CSV template</li>
+                        <li>Fill in student data following the template format</li>
+                        <li>Upload the CSV file</li>
+                        <li>Review and confirm import</li>
+                    </ol>
+                </div>
+
+                <h3>4. Managing Academic Sessions</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Navigate to "Academic Settings"</li>
+                        <li>View available sessions created by admin</li>
+                        <li>Create terms for your school within the session</li>
+                        <li>Set term start and end dates</li>
+                        <li>Mark current term as active</li>
+                    </ol>
+                </div>
+
+                <h3>5. Viewing Reports</h3>
+                <div class="card">
+                    <p>Access the "Reports" section to view:</p>
+                    <ul>
+                        <li>School-wide attendance summary</li>
+                        <li>Class performance analytics</li>
+                        <li>Trainer activity reports</li>
+                        <li>Student progress reports</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Trainer Guide -->
+            <section id="trainer" class="content-section">
+                <h1>Trainer Guide</h1>
+
+                <h2>Your Trainer Dashboard</h2>
+                <div class="card">
+                    <p>As a trainer, you manage daily class activities including attendance, student performance, and report card generation.</p>
+                </div>
+
+                <h3>1. Viewing Assigned Classes</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Login to the system</li>
+                        <li>Your dashboard displays all assigned classes</li>
+                        <li>Click on a class card to view details</li>
+                        <li>View student list, courses, and schedules</li>
+                    </ol>
+                </div>
+
+                <h3>2. Taking Attendance</h3>
+                <div class="card">
+                    <h4>Creating a Session</h4>
+                    <ol class="step-list">
+                        <li>Navigate to your class</li>
+                        <li>Click "Create Session" or "Take Attendance"</li>
+                        <li>Select the date and session type</li>
+                        <li>Enter session notes (optional)</li>
+                    </ol>
+
+                    <h4>Marking Attendance</h4>
+                    <ol class="step-list">
+                        <li>You'll see a list of all students in the class</li>
+                        <li>Mark each student as:
+                            <ul>
+                                <li><strong>Present</strong> - Student attended</li>
+                                <li><strong>Absent</strong> - Student did not attend</li>
+                                <li><strong>Late</strong> - Student arrived late</li>
+                                <li><strong>Excused</strong> - Absence with valid reason</li>
+                            </ul>
+                        </li>
+                        <li>Click "Save Attendance" when complete</li>
+                    </ol>
+                </div>
+
+                <h3>3. Entering Performance Data</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Go to class details page</li>
+                        <li>Click on "Performance" or "Enter Grades"</li>
+                        <li>Select the metric (e.g., Homework, Class Participation)</li>
+                        <li>Enter scores for each student</li>
+                        <li>Add remarks if needed</li>
+                        <li>Save the performance data</li>
+                    </ol>
+                </div>
+
+                <h3>4. Generating Report Cards</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Navigate to "Report Cards" section</li>
+                        <li>Select the class and term</li>
+                        <li>Choose a report card template</li>
+                        <li>Review auto-calculated metrics</li>
+                        <li>Add trainer remarks</li>
+                        <li>Generate individual or batch report cards</li>
+                        <li>Download as PDF or print</li>
+                    </ol>
+                </div>
+
+                <h3>5. Viewing Student Profiles</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Click on any student name in your class</li>
+                        <li>View their complete profile:</li>
+                    </ol>
+                    <ul>
+                        <li>Personal information</li>
+                        <li>Attendance history</li>
+                        <li>Performance across all metrics</li>
+                        <li>Previous report cards</li>
+                        <li>Parent/guardian contact details</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">💡 Tip</div>
+                    <p>Take attendance regularly and enter performance data consistently. This ensures accurate and comprehensive report cards at the end of each term.</p>
+                </div>
+            </section>
+
+            <!-- Student Guide -->
+            <section id="student" class="content-section">
+                <h1>Student Guide</h1>
+
+                <h2>Accessing Your Information</h2>
+                <div class="card">
+                    <p>As a student, you can view your academic records, attendance, and report cards through the EduTrack LMS portal.</p>
+                </div>
+
+                <h3>1. Logging In</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Visit the system URL provided by your school</li>
+                        <li>Enter your username (usually your email or student ID)</li>
+                        <li>Enter your password</li>
+                        <li>Click "Sign In"</li>
+                    </ol>
+                </div>
+
+                <h3>2. Your Dashboard</h3>
+                <div class="card">
+                    <p>After login, you'll see:</p>
+                    <ul>
+                        <li><strong>My Class</strong> - Your current class information</li>
+                        <li><strong>Assigned Trainer</strong> - Your class teacher's details</li>
+                        <li><strong>Courses</strong> - Subjects you're studying</li>
+                        <li><strong>Attendance Summary</strong> - Your attendance percentage</li>
+                        <li><strong>Recent Report Cards</strong> - Latest term results</li>
+                    </ul>
+                </div>
+
+                <h3>3. Viewing Report Cards</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Click on "Report Cards" in the sidebar</li>
+                        <li>View list of all generated report cards</li>
+                        <li>Click on any report card to view details</li>
+                        <li>Download as PDF for your records</li>
+                    </ol>
+
+                    <div class="screenshot">
+                        <div class="screenshot-icon">📄</div>
+                        <p>Report Card View</p>
+                        <p style="font-size: 12px;">Shows grades, attendance, and trainer remarks</p>
+                    </div>
+                </div>
+
+                <h3>4. Checking Attendance</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Navigate to "My Attendance"</li>
+                        <li>View attendance by month or term</li>
+                        <li>See present/absent/late counts</li>
+                        <li>View detailed session logs</li>
+                    </ol>
+                </div>
+
+                <h3>5. Updating Profile</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Click on "My Profile"</li>
+                        <li>View your personal information</li>
+                        <li>Contact your trainer if any details need correction</li>
+                    </ol>
+                </div>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">🔒 Important</div>
+                    <p>Keep your login credentials secure. Do not share your password with anyone. If you suspect unauthorized access, contact your trainer immediately.</p>
+                </div>
+            </section>
+
+            <!-- Schools Section -->
+            <section id="schools" class="content-section">
+                <h1>School Management</h1>
+
+                <h2>Managing Multiple Schools</h2>
+                <div class="card">
+                    <p>The school management module allows administrators to set up and manage multiple educational institutions within the system.</p>
+                </div>
+
+                <h3>School Details</h3>
+                <div class="card">
+                    <p>Each school record contains:</p>
+                    <ul>
+                        <li><strong>School Name</strong> - Official name of the institution</li>
+                        <li><strong>School Code</strong> - Unique identifier for the school</li>
+                        <li><strong>Address</strong> - Physical location</li>
+                        <li><strong>Contact Information</strong> - Phone, email, website</li>
+                        <li><strong>Principal/Head</strong> - Contact person details</li>
+                        <li><strong>Branches</strong> - Multiple locations if applicable</li>
+                    </ul>
+                </div>
+
+                <h3>School Settings</h3>
+                <div class="card">
+                    <h4>Academic Configuration</h4>
+                    <ul>
+                        <li>Set academic session format (e.g., 2025-2026)</li>
+                        <li>Define term structure (Semesters/Trimesters)</li>
+                        <li>Configure grading scales</li>
+                        <li>Set attendance policies</li>
+                    </ul>
+                </div>
+
+                <h3>Managing Branches</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Go to School Details</li>
+                        <li>Click "Manage Branches"</li>
+                        <li>Add branch locations with addresses</li>
+                        <li>Assign managers to specific branches</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Classes Section -->
+            <section id="classes" class="content-section">
+                <h1>Class Management</h1>
+
+                <h2>Creating and Managing Classes</h2>
+                <div class="card">
+                    <p>Classes are the core organizational unit that link students, trainers, and courses together.</p>
+                </div>
+
+                <h3>Class Creation Checklist</h3>
+                <div class="card">
+                    <ul>
+                        <li>✅ School is created and configured</li>
+                        <li>✅ Academic session is active</li>
+                        <li>✅ Academic term is defined</li>
+                        <li>✅ Trainer is created (or will be assigned later)</li>
+                        <li>✅ Courses are created in the system</li>
+                    </ul>
+                </div>
+
+                <h3>Class Details</h3>
+                <div class="card">
+                    <table class="credentials-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Description</th>
+                                <th>Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Class Name</td>
+                                <td>Display name (e.g., "Grade 5-A")</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>School</td>
+                                <td>Associated school</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Academic Session</td>
+                                <td>Year/Session (e.g., 2025-2026)</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Academic Term</td>
+                                <td>Semester/Term within session</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Trainer</td>
+                                <td>Assigned class teacher</td>
+                                <td>Optional</td>
+                            </tr>
+                            <tr>
+                                <td>Courses</td>
+                                <td>Subjects taught in this class</td>
+                                <td>Optional</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Class Operations</h3>
+                <div class="card">
+                    <h4>Assigning Students</h4>
+                    <ol class="step-list">
+                        <li>Open class details page</li>
+                        <li>Click "Manage Students"</li>
+                        <li>Add students from the list (must be created first)</li>
+                        <li>Or use bulk import for multiple students</li>
+                    </ol>
+
+                    <h4>Updating Class Information</h4>
+                    <ol class="step-list">
+                        <li>Click "Edit" on class card</li>
+                        <li>Modify details as needed</li>
+                        <li>Change trainer assignment</li>
+                        <li>Update course list</li>
+                        <li>Save changes</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Courses Section -->
+            <section id="courses" class="content-section">
+                <h1>Course Management</h1>
+
+                <h2>Managing Curriculum</h2>
+                <div class="card">
+                    <p>Courses represent the subjects or programs offered by your institution. They can be assigned to classes and used in report card generation.</p>
+                </div>
+
+                <h3>Course Attributes</h3>
+                <div class="card">
+                    <table class="credentials-table">
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Course Code</td>
+                                <td>Unique identifier (e.g., MATH-101)</td>
+                            </tr>
+                            <tr>
+                                <td>Title</td>
+                                <td>Full course name</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>Detailed course information</td>
+                            </tr>
+                            <tr>
+                                <td>Duration</td>
+                                <td>Length in weeks</td>
+                            </tr>
+                            <tr>
+                                <td>Grade</td>
+                                <td>Applicable grade level (optional)</td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>Active or Archived</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Creating a Course</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Navigate to "Course Management"</li>
+                        <li>Click "Add Course"</li>
+                        <li>Enter course code (unique)</li>
+                        <li>Enter course title</li>
+                        <li>Add description (optional)</li>
+                        <li>Set duration in weeks (optional)</li>
+                        <li>Select grade level if applicable</li>
+                        <li>Set status to "Active"</li>
+                        <li>Click "Create"</li>
+                    </ol>
+                </div>
+
+                <h3>Filtering Courses</h3>
+                <div class="card">
+                    <p>Use the grade filter to quickly find courses for specific grade levels:</p>
+                    <ul>
+                        <li>All Grades</li>
+                        <li>Ungraded</li>
+                        <li>Nursery through Grade 12</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Report Cards Section -->
+            <section id="report-cards" class="content-section">
+                <h1>Report Card System</h1>
+
+                <h2>Comprehensive Student Evaluation</h2>
+                <div class="card">
+                    <p>The report card system allows trainers to generate detailed performance reports combining attendance data, course metrics, and qualitative assessments.</p>
+                </div>
+
+                <h3>Understanding Report Cards</h3>
+                <div class="card">
+                    <h4>Components</h4>
+                    <ul>
+                        <li><strong>Student Information</strong> - Name, Class, Roll Number</li>
+                        <li><strong>Academic Details</strong> - Session, Term, School</li>
+                        <li><strong>Attendance Summary</strong> - Present, Absent, Late counts with percentage</li>
+                        <li><strong>Course Performance</strong> - Grades/Scores for each subject</li>
+                        <li><strong>Metrics</strong> - Custom evaluation criteria (Homework, Participation, etc.)</li>
+                        <li><strong>Remarks</strong> - Trainer comments and recommendations</li>
+                    </ul>
+                </div>
+
+                <h3>Setting Up Report Cards</h3>
+                <div class="card">
+                    <h4>Step 1: Create Parameter Sets (Admin)</h4>
+                    <ol class="step-list">
+                        <li>Go to "Report Card Settings" → "Parameter Sets"</li>
+                        <li>Click "Create Parameter Set"</li>
+                        <li>Name your parameter set</li>
+                        <li>Add metrics (e.g., Attendance, Homework, Behavior)</li>
+                        <li>Define metric keys with scoring criteria</li>
+                        <li>Save the parameter set</li>
+                    </ol>
+
+                    <h4>Step 2: Create Templates (Admin)</h4>
+                    <ol class="step-list">
+                        <li>Navigate to "Report Card Templates"</li>
+                        <li>Click "Create Template"</li>
+                        <li>Select a parameter set</li>
+                        <li>Configure layout and appearance</li>
+                        <li>Set grading scale</li>
+                        <li>Save and publish</li>
+                    </ol>
+
+                    <h4>Step 3: Configure Class Report Cards (Manager/Admin)</h4>
+                    <ol class="step-list">
+                        <li>Open class details</li>
+                        <li>Go to "Report Card Configuration"</li>
+                        <li>Select a template</li>
+                        <li>Select or customize parameter set</li>
+                        <li>Save configuration</li>
+                    </ol>
+                </div>
+
+                <h3>Generating Report Cards</h3>
+                <div class="card">
+                    <ol class="step-list">
+                        <li>Go to "Report Cards" section</li>
+                        <li>Select class and term</li>
+                        <li>Review auto-populated data:
+                            <ul>
+                                <li>Attendance is automatically calculated</li>
+                                <li>Course grades are pulled from performance records</li>
+                            </ul>
+                        </li>
+                        <li>Add or edit metric scores</li>
+                        <li>Enter trainer remarks</li>
+                        <li>Preview the report card</li>
+                        <li>Generate for single student or entire class</li>
+                        <li>Download as PDF or print</li>
+                    </ol>
+                </div>
+
+                <div class="info-box success">
+                    <div class="info-box-title">✅ Pro Tip</div>
+                    <p>Set up your report card configuration at the beginning of each term. This ensures consistent evaluation throughout the academic period.</p>
+                </div>
+            </section>
+
+            <!-- Attendance Section -->
+            <section id="attendance" class="content-section">
+                <h1>Attendance Management</h1>
+
+                <h2>Tracking Student Attendance</h2>
+                <div class="card">
+                    <p>The attendance system allows trainers to record daily attendance, view historical data, and generate attendance reports.</p>
+                </div>
+
+                <h3>Attendance Status Types</h3>
+                <div class="card">
+                    <table class="credentials-table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Description</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span style="color: var(--success);">● Present</span></td>
+                                <td>Student attended the session</td>
+                                <td>Positive count</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: var(--error);">● Absent</span></td>
+                                <td>Student did not attend</td>
+                                <td>Negative count</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: var(--warning);">● Late</span></td>
+                                <td>Student arrived late</td>
+                                <td>Partial count</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: var(--info);">● Excused</span></td>
+                                <td>Absence with valid reason</td>
+                                <td>Neutral count</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Taking Attendance</h3>
+                <div class="card">
+                    <h4>For Trainers</h4>
+                    <ol class="step-list">
+                        <li>Login and navigate to your class</li>
+                        <li>Click "Create Session" or "Take Attendance"</li>
+                        <li>Select the date (defaults to today)</li>
+                        <li>Choose session type (Morning/Afternoon/Full Day)</li>
+                        <li>Mark each student's status</li>
+                        <li>Add notes if needed</li>
+                        <li>Save the attendance record</li>
+                    </ol>
+
+                    <h4>Bulk Operations</h4>
+                    <ul>
+                        <li><strong>Mark All Present</strong> - Quick option for full attendance days</li>
+                        <li><strong>Copy from Previous</strong> - Copy yesterday's attendance as starting point</li>
+                    </ul>
+                </div>
+
+                <h3>Viewing Attendance Reports</h3>
+                <div class="card">
+                    <h4>Class-Level View (Manager/Trainer)</h4>
+                    <ul>
+                        <li>Daily attendance sheets</li>
+                        <li>Monthly summary with percentages</li>
+                        <li>Student-wise attendance history</li>
+                        <li>Absence pattern analysis</li>
+                    </ul>
+
+                    <h4>Student-Level View (Student)</h4>
+                    <ul>
+                        <li>Personal attendance calendar</li>
+                        <li>Month-wise statistics</li>
+                        <li>Overall attendance percentage</li>
+                        <li>Session details</li>
+                    </ul>
+                </div>
+
+                <h3>Attendance in Report Cards</h3>
+                <div class="card">
+                    <p>Attendance data automatically appears in report cards showing:</p>
+                    <ul>
+                        <li>Total working days in the term</li>
+                        <li>Days present</li>
+                        <li>Days absent</li>
+                        <li>Days late</li>
+                        <li>Attendance percentage</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Troubleshooting Section -->
+            <section id="troubleshooting" class="content-section">
+                <h1>Troubleshooting</h1>
+
+                <h2>Common Issues & Solutions</h2>
+
+                <h3>Login Issues</h3>
+                <div class="card">
+                    <h4>Cannot Access the System</h4>
+                    <div class="info-box error">
+                        <p><strong>Problem:</strong> Page keeps reloading or shows "Not Secure" warning</p>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Ensure you're using <code>http://</code> (not https://)</li>
+                            <li>Clear browser cache (Ctrl+Shift+Delete)</li>
+                            <li>Try accessing in incognito/private mode</li>
+                            <li>Check if URL is correct: <code>http://43.205.116.187/app/</code></li>
+                        </ol>
+                    </div>
+
+                    <h4>Invalid Credentials</h4>
+                    <div class="info-box">
+                        <p><strong>Problem:</strong> "Invalid username or password" error</p>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Check caps lock is off</li>
+                            <li>Verify username (usually email format)</li>
+                            <li>Contact admin if password forgotten</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>Data Issues</h3>
+                <div class="card">
+                    <h4>Cannot Create Class</h4>
+                    <div class="info-box warning">
+                        <p><strong>Problem:</strong> "Academic year not found" or similar</p>
+                        <p><strong>Solution:</strong> Ensure academic session and terms are created first by admin/manager</p>
+                    </div>
+
+                    <h4>Students Not Appearing</h4>
+                    <div class="info-box">
+                        <p><strong>Problem:</strong> Added students not showing in class</p>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Verify students are assigned to the correct class</li>
+                            <li>Check if students are marked as "Active"</li>
+                            <li>Refresh the page after adding students</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>Report Card Issues</h3>
+                <div class="card">
+                    <h4>Template Not Available</h4>
+                    <div class="info-box">
+                        <p><strong>Problem:</strong> No templates showing when generating report cards</p>
+                        <p><strong>Solution:</strong> Contact admin to create and publish a report card template</p>
+                    </div>
+
+                    <h4>Attendance Data Missing</h4>
+                    <div class="info-box">
+                        <p><strong>Problem:</strong> Attendance shows 0% in report card</p>
+                        <p><strong>Solution:</strong> Ensure attendance has been recorded for the selected term</p>
+                    </div>
+                </div>
+
+                <h3>Performance Issues</h3>
+                <div class="card">
+                    <h4>Page Loading Slowly</h4>
+                    <ul>
+                        <li>Check internet connection stability</li>
+                        <li>Clear browser cache</li>
+                        <li>Try a different browser</li>
+                        <li>Close other tabs/applications using bandwidth</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="content-section">
+                <h1>Contact Support</h1>
+
+                <h2>Need Help?</h2>
+                <div class="card">
+                    <p>If you encounter issues not covered in this documentation, please contact our support team.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📧</div>
+                        <div class="card-title">Support Email</div>
+                    </div>
+                    <p style="font-size: 18px; font-weight: 600; color: var(--accent-primary);">
+                        abhay.singh@onmyowntechnology.com
+                    </p>
+                    <p style="margin-top: 12px;">Please include the following information:</p>
+                    <ul>
+                        <li>Your role (Admin/Manager/Trainer/Student)</li>
+                        <li>School name</li>
+                        <li>Description of the issue</li>
+                        <li>Screenshots (if applicable)</li>
+                        <li>Browser and device information</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">💻</div>
+                        <div class="card-title">GitHub Issues</div>
+                    </div>
+                    <p>For technical issues and bug reports, you can also open an issue on our GitHub repository:</p>
+                    <div class="code-block" data-lang="url">https://github.com/Thisisabhaysingh/Omo_reportcard/issues</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⏰</div>
+                        <div class="card-title">Response Time</div>
+                    </div>
+                    <p>Our team typically responds within:</p>
+                    <ul>
+                        <li><strong>Critical Issues:</strong> 4-8 hours</li>
+                        <li><strong>General Queries:</strong> 24-48 hours</li>
+                        <li><strong>Feature Requests:</strong> 3-5 business days</li>
+                    </ul>
+                </div>
+
+                <div class="info-box success">
+                    <div class="info-box-title">🙏 Thank You</div>
+                    <p>Thank you for using EduTrack LMS. We appreciate your feedback and suggestions to help us improve the system.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Navigation functionality
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.closest('.nav-link').classList.add('active');
+
+            // Close mobile sidebar
+            document.getElementById('sidebar').classList.remove('open');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(link => {
+                const text = link.textContent.toLowerCase();
+                const parent = link.closest('.nav-item');
+
+                if (text.includes(searchTerm)) {
+                    parent.style.display = 'block';
+                } else {
+                    parent.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.mobile-toggle');
+
+            if (window.innerWidth <= 768 &&
+                !sidebar.contains(e.target) &&
+                !toggle.contains(e.target) &&
+                sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Handle URL hash for direct linking
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                const section = document.getElementById(hash);
+                if (section) {
+                    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                    section.classList.add('active');
+
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    const link = document.querySelector(`a[href="#${hash}"]`);
+                    if (link) link.classList.add('active');
+                }
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                showSection(hash);
+                const link = document.querySelector(`a[href="#${hash}"]`);
+                if (link) {
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
